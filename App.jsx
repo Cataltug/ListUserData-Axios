@@ -22,7 +22,7 @@ const UserList = () => {
       })
       .catch(err => {
         console.log('There was an error with the axios request:', err);
-        setError('Veri çekilirken bir hata oluştu.');
+        setError('Error fetching data.');
       })
       .finally(() => {
         setLoading(false);
