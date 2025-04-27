@@ -11,25 +11,23 @@ const UserList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchUsers = () => {
-    setLoading(true);
-    setError(null);
-
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then(response => {
+  const fetchUsers = async () => {
+      setError(null);
+      try {
+        const response = await axios.get("https://jsonplaceholder.typicode.com/users");
         setUsers(response.data);
-      })
-      .catch(err => {
-        console.log('There was an error with the axios request:', err);
-        setError('Error fetching data.');
-      })
-      .finally(() => {
+      } catch (err) {
+        console.error(err);
+        setError("Error fethcing data");
+      } finally {
         setLoading(false);
-      });
-  };
-
-  useEffect(fetchUsers, []);
+      }
+    };
+  
+    useEffect(() => {
+      setLoading(true);
+      fetchUsers();
+    }, []);
 
   return (
     <SafeAreaView styles = {{flex: 1}}>
